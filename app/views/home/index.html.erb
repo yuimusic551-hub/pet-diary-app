@@ -1,0 +1,131 @@
+<style>
+  /* 全体の背景設定 */
+  .top-wrapper {
+    background-color: #fdfaf4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Zen Maru Gothic', 'Hiragino Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 種のアニメーション */
+  @keyframes roll-seed {
+    0% { left: -200px; transform: rotate(0deg); }
+    100% { left: 110%; transform: rotate(720deg); }
+  }
+
+  .moving-seed {
+    position: absolute;
+    pointer-events: none;
+    animation: roll-seed 18s linear infinite;
+    opacity: 0.9;
+    z-index: 1;
+  }
+
+  /* 種のサイズ設定 */
+  .s1 { top: 5%; width: 150px; animation-duration: 12s; animation-delay: 0s; } /* 特大 */
+  .s2 { top: 35%; width: 60px;  animation-duration: 22s; animation-delay: -5s; }
+  .s3 { top: 65%; width: 90px;  animation-duration: 16s; animation-delay: -2s; }
+  .s4 { top: 85%; width: 70px;  animation-duration: 25s; animation-delay: -10s; }
+
+  /* タイトル */
+  .main-title {
+    color: #5d4037;
+    font-size: 48px;
+    margin-bottom: 40px;
+    z-index: 10;
+  }
+
+  /* 写真フレーム */
+  .photo-frame {
+    background: white;
+    padding: 15px 15px 55px 15px; 
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+    margin-bottom: 50px;
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    width: 90%;
+    max-width: 650px;
+    z-index: 10;
+  }
+
+  /* キャッチコピー */
+  .catch-phrase {
+    color: #8d6e63;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    z-index: 10;
+  }
+
+  /* --- 修正ポイント：ボタンエリア --- */
+  .btn-area {
+    position: relative;
+    display: flex;            /* 中央寄せのためにflexを追加 */
+    justify-content: center;
+    width: 100%;
+    max-width: 450px;         /* 肉球がはみ出す分、少し広めに確保 */
+    z-index: 15;
+  }
+
+  .btn-login {
+    background-color: #f39242;
+    color: white;
+    padding: 20px 0;
+    text-decoration: none;
+    border-radius: 60px;
+    font-size: 26px;
+    font-weight: bold;
+    display: block;
+    width: 100%;             /* エリアいっぱいに広げる */
+    box-shadow: 0 8px 0 #d37a2d;
+    text-align: center;      /* 文字を中央に */
+  }
+
+  .paw-img {
+    position: absolute;
+    right: -20px;            /* 重なり具合を調整 */
+    top: -15px;              /* 上下の位置を調整 */
+    width: 120px;            /* 肉球のサイズ */
+    z-index: 20;
+    pointer-events: none;    /* ボタンをクリックしやすくする */
+  }
+
+  /* スマホ対応 */
+  @media (max-width: 600px) {
+    .main-title { font-size: 32px; }
+    .photo-frame { width: 95%; }
+    .btn-login { font-size: 22px; }
+    .paw-img { width: 90px; right: -10px; top: -10px; }
+  }
+</style>
+
+<div class="top-wrapper">
+  
+  <%= image_tag 'sunflower_seed.png', class: 'moving-seed s1' %>
+  <%= image_tag 'sunflower_seed.png', class: 'moving-seed s2' %>
+  <%= image_tag 'sunflower_seed.png', class: 'moving-seed s3' %>
+  <%= image_tag 'sunflower_seed.png', class: 'moving-seed s4' %>
+
+  <h1 class="main-title">🌻 うちの子日記 🌻</h1>
+
+  <div class="photo-frame">
+    <%= image_tag 'hamster_.jpg', style: 'width: 100%; display: block;' %>
+  </div>
+
+  <p class="catch-phrase">
+    大切な家族の思い出を、コロコロ記録しましょう。
+  </p>
+
+  <div class="btn-area">
+    <%= link_to "はじめる（ログイン）", new_user_session_path, class: "btn-login" %>
+    <%= image_tag 'paw_button.png', class: 'paw-img' %>
+  </div>
+
+</div>
