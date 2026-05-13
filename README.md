@@ -1,24 +1,37 @@
-# README
+# アプリ名：Pet Diary（ペット日記）
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ペット（ハムスター、猫、犬）の年齢を人間年齢に換算して確認でき、日々の思い出を写真付きで記録できるアプリです。
 
-Things you may want to cover:
+## テーブル設計
 
-* Ruby version
+### users テーブル
+| Column   | Type   | Options     |
+| -------- | ------ | ----------- |
+| nickname | string | null: false |
+| email    | string | null: false, unique: true |
+| password | string | null: false |
 
-* System dependencies
+#### Association
+- has_many :pets
 
-* Configuration
+### pets テーブル
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| name        | string     | null: false                    |
+| birth_date  | date       | null: false                    |
+| species_id  | integer    | null: false                    |
+| gender_id   | integer    | null: false                    |
+| user        | references | null: false, foreign_key: true |
 
-* Database creation
+#### Association
+- belongs_to :user
+- has_many :diaries
 
-* Database initialization
+### diaries テーブル
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| content | text       | null: false                    |
+| pet     | references | null: false, foreign_key: true |
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### Association
+- belongs_to :pet
