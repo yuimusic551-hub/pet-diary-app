@@ -13,7 +13,7 @@
     overflow: hidden;
   }
 
-  /* --- ボタンエリアの修正 --- */
+  /* --- ボタンエリア --- */
   .btn-area {
     position: relative;
     display: flex;
@@ -23,30 +23,28 @@
     z-index: 15;
   }
 
-  /* 【重要】リンクの範囲を「画像の大きさ」に厳密に合わせる */
   .login-link-wrap {
     display: block;
-    width: fit-content; /* 中身のサイズにピッタリ合わせる */
-    line-height: 0;      /* 下側の謎の隙間を消す */
+    width: fit-content;
+    line-height: 0;
     text-decoration: none;
-    -webkit-tap-highlight-color: transparent; /* スマホの青い枠を消す */
+    -webkit-tap-highlight-color: transparent;
   }
 
   .login-image-btn {
-    width: 320px;  /* お好みのサイズに固定（または max-width） */
+    width: 320px;
     height: auto;
     display: block;
     cursor: pointer;
-    transition: all 0.1s; /* 動きをなめらかに */
+    transition: all 0.1s;
   }
 
-  /* --- 押している感覚（沈み込み演出） --- */
   .login-link-wrap:active .login-image-btn {
-    transform: translateY(6px); /* 下に6ピクセル沈む */
-    filter: brightness(0.9);    /* 少し暗くして影を表現 */
+    transform: translateY(6px);
+    filter: brightness(0.9);
   }
 
-  /* ログイン状態通知ボックス（以前と同じ） */
+  /* --- ログイン状態通知ボックス --- */
   .status-info-area {
     margin-top: 25px;
     text-align: center;
@@ -65,6 +63,22 @@
     display: block;
     margin-bottom: 10px;
   }
+
+  /* --- ボタンのデザイン（日記へ・ログアウト） --- */
+  .go-diaries-btn {
+    background-color: #8bc34a;
+    color: white !important;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 3px 0 #689f38;
+    display: inline-block;
+    transition: 0.1s;
+  }
+  .go-diaries-btn:active { transform: translateY(2px); box-shadow: none; }
+
   .logout-btn {
     background-color: #f06292;
     color: white !important;
@@ -76,17 +90,30 @@
     box-shadow: 0 3px 0 #c2185b;
     display: inline-block;
   }
+  .logout-btn:active { transform: translateY(2px); box-shadow: none; }
 
-  /* 既存のアニメーションなどはそのまま */
+  /* --- 装飾要素 --- */
   .main-title { color: #5d4037; font-size: 48px; margin-bottom: 40px; z-index: 10; }
   .photo-frame { background: white; padding: 15px 15px 55px 15px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); border: 1px solid #eee; margin-bottom: 50px; transform: rotate(-1.5deg); display: inline-block; width: 90%; max-width: 650px; z-index: 10; }
   .catch-phrase { color: #8d6e63; font-size: 20px; font-weight: bold; margin-bottom: 50px; z-index: 10; }
+
   @keyframes roll-seed { 0% { left: -200px; transform: rotate(0deg); } 100% { left: 110%; transform: rotate(720deg); } }
   .moving-seed { position: absolute; pointer-events: none; animation: roll-seed 18s linear infinite; opacity: 0.9; z-index: 1; }
   .s1 { top: 5%; width: 150px; animation-duration: 12s; }
   .s2 { top: 35%; width: 60px;  animation-duration: 22s; animation-delay: -5s; }
   .s3 { top: 65%; width: 90px;  animation-duration: 16s; animation-delay: -2s; }
   .s4 { top: 85%; width: 70px;  animation-duration: 25s; animation-delay: -10s; }
+
+  /* --- 【ここがスマホ対応！】 --- */
+  @media (max-width: 600px) {
+    .main-title { font-size: 32px; margin-bottom: 20px; }
+    .photo-frame { width: 95%; padding: 10px 10px 40px 10px; margin-bottom: 30px; }
+    .catch-phrase { font-size: 16px; margin-bottom: 30px; padding: 0 10px; }
+    .login-image-btn { width: 280px; } /* スマホではボタンを少し小さく */
+    .status-box { padding: 12px 20px; width: 90%; }
+    .status-msg { font-size: 13px; }
+    .go-diaries-btn, .logout-btn { font-size: 12px; padding: 6px 15px; }
+  }
 </style>
 
 <div class="top-wrapper">
@@ -106,7 +133,6 @@
   </p>
 
   <div class="btn-area">
-    <%# リンクの範囲を「画像のサイズ」に強制的に絞る %>
     <%= link_to new_user_session_path, class: "login-link-wrap" do %>
       <%= image_tag 'login_btn_wood.jpg', class: 'login-image-btn' %>
     <% end %>
@@ -118,12 +144,18 @@
             <% if flash.any? %>
               <% flash.each do |name, msg| %><%= msg %><% end %>
             <% else %>
-              ログイン中です
+              おかえりなさい！ログイン中です 🐾
             <% end %>
           </span>
-          <% if user_signed_in? %>
-            <%= link_to "ログアウトする", destroy_user_session_path, data: { turbo_method: :delete }, class: "logout-btn" %>
-          <% end %>
+
+          <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <% if user_signed_in? %>
+              <%= link_to "日記帳をみる", diaries_path, class: "go-diaries-btn" %>
+              <%= link_to "ログアウト", destroy_user_session_path, 
+                          data: { turbo_method: :delete }, 
+                          class: "logout-btn" %>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>

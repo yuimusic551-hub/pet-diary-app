@@ -38,7 +38,7 @@
     border-radius: 30px;
     box-shadow: 0 10px 30px rgba(255, 182, 193, 0.2);
     width: 100%;
-    max-width: 400px;
+    max-width: 450px; /* 少し広くしました */
     border: 1px solid #ffe4e8;
     text-align: center;
     z-index: 10;
@@ -47,22 +47,23 @@
 
   .auth-card h2 { color: #d81b60; margin-bottom: 25px; font-size: 24px; font-weight: bold; }
   
-  .field { margin-bottom: 20px; text-align: left; }
-  .field label { color: #ad1457; font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px; }
+  .field { margin-bottom: 25px; text-align: left; }
+  .field label { color: #ad1457; font-weight: bold; display: block; margin-bottom: 8px; font-size: 16px; }
   
-  input[type="email"], input[type="password"] {
+  /* 入力欄の共通デザイン */
+  .input-style {
     width: 100%;
-    padding: 14px;
+    padding: 15px;
     border: 2px solid #ffe4e8;
-    border-radius: 12px;
+    border-radius: 15px;
     box-sizing: border-box;
     background: #fffafa;
-    font-size: 16px;
+    font-size: 18px;
     outline: none;
     transition: all 0.3s;
   }
 
-  input:focus {
+  .input-style:focus {
     border-color: #f06292;
     background: white;
     box-shadow: 0 0 10px rgba(240, 98, 146, 0.1);
@@ -73,14 +74,14 @@
     background-color: #f06292;
     color: white;
     border: none;
-    padding: 16px;
+    padding: 18px;
     width: 100%;
     border-radius: 50px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 5px 0 #c2185b;
-    margin-top: 10px;
+    box-shadow: 0 6px 0 #c2185b;
+    margin-top: 15px;
     transition: all 0.1s;
   }
 
@@ -89,7 +90,7 @@
     box-shadow: 0 2px 0 #c2185b;
   }
 
-  /* 🌸 エラーメッセージ：カード内にスクロールで収める */
+  /* 🌸 エラーメッセージ */
   #error_explanation {
     background: #fff0f5;
     border-radius: 15px;
@@ -122,19 +123,30 @@
       <%# エラー通知を表示 %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
+      <%# ニックネーム %>
+      <div class="field">
+        <%= f.label :name, "ニックネーム（お名前）" %>
+        <%= f.text_field :name, autofocus: true, placeholder: "例：はなこ", required: true, class: "input-style" %>
+        <p style="color: #f06292; font-size: 13px; margin-top: 5px;">※ 日記帳の表紙にお名前が載ります 🌸</p>
+      </div>
+
+      <%# メールアドレス %>
       <div class="field">
         <%= f.label :email, "メールアドレス" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "お使いのメールアドレス" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "お使いのメールアドレス", class: "input-style" %>
       </div>
 
+      <%# パスワード %>
       <div class="field">
-        <%= f.label :password, "パスワード（6文字以上）" %>
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "6文字以上で決めてね" %>
+        <%= f.label :password, "パスワード（10文字以上）" %>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "10文字以上で決めてね", required: true, class: "input-style" %>
+        <p style="color: #888; font-size: 13px; margin-top: 5px;">※ 忘れないようにメモしておいてくださいね 📝</p>
       </div>
 
+      <%# パスワード（確認用） %>
       <div class="field">
         <%= f.label :password_confirmation, "パスワード（もういちど）" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "おなじパスワードを入力" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "おなじパスワードを入力", required: true, class: "input-style" %>
       </div>
 
       <div class="actions">

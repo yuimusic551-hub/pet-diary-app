@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  get 'diaries/index'
   devise_for :users
   
-  # トップ画面を homeコントローラーのindexアクションに設定
   root to: "home#index"
 
-  # 日記（ペット）に関する設定
+  # ペットの登録・一覧
   resources :pets, only: [:new, :create, :index]
+
+  # 日記の管理（diaries/index だけでなく、作成や保存も一気にセット。こちらがおすすめ）
+  resources :diaries
 end

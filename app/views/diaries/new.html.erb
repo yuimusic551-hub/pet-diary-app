@@ -1,0 +1,29 @@
+<style>
+  .new-diary-wrapper { background-color: #fdfaf4; min-height: 100vh; padding: 40px 20px; font-family: 'Zen Maru Gothic', sans-serif; }
+  .form-container { max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
+  .form-title { color: #8bc34a; font-size: 32px; margin-bottom: 35px; text-align: center; font-weight: bold; }
+  .input-label { display: block; color: #555; font-weight: bold; font-size: 20px; margin-bottom: 12px; }
+  .input-field { width: 100%; padding: 18px; border: 2px solid #e0e0e0; border-radius: 20px; font-size: 20px; margin-bottom: 30px; box-sizing: border-box; background-color: #fafafa; }
+  .text-area { height: 350px; line-height: 1.8; }
+  .save-btn { background-color: #ff9800; color: white; width: 100%; padding: 22px; border: none; border-radius: 60px; font-size: 26px; font-weight: bold; box-shadow: 0 8px 0 #e68a00; cursor: pointer; transition: 0.1s; }
+  .save-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #e68a00; }
+  .back-link { display: block; text-align: center; margin-top: 30px; color: #999; text-decoration: none; font-size: 16px; }
+</style>
+
+<div class="new-diary-wrapper">
+  <div class="form-container">
+    <h2 class="form-title">今日の日記 🍃</h2>
+    <%= form_with(model: @diary) do |f| %>
+      <div>
+        <%= f.label :title, "見出し（タイトル）", class: "input-label" %>
+        <%= f.text_field :title, placeholder: "例：ひまわりが綺麗に咲いたよ", class: "input-field" %>
+      </div>
+      <div>
+        <%= f.label :content, "今日のできごと", class: "input-label" %>
+        <%= f.text_area :content, placeholder: "ここにゆっくりと書いてくださいね", class: "input-field text-area" %>
+      </div>
+      <%= f.submit "日記を保存する ✨", class: "save-btn" %>
+    <% end %>
+    <%= link_to "← もどる", diaries_path, class: "back-link" %>
+  </div>
+</div>

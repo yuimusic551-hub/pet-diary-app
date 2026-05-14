@@ -1,2 +1,123 @@
-<h1>Diaries#index</h1>
-<p>Find me in app/views/diaries/index.html.erb</p>
+<style>
+  /* --- 全体設定：大きく、ゆったり --- */
+  .main-wrapper {
+    background-color: #f0f7f0; /* 爽やかな若葉色 */
+    min-height: 100vh;
+    font-family: 'Zen Maru Gothic', sans-serif;
+  }
+
+  /* --- ヘッダー：お名前を主役に --- */
+  .top-nav {
+    background-color: white;
+    padding: 25px 40px; /* 高さを出してゆったり */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .nav-user {
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 28px; /* かなり大きくしました */
+  }
+
+  .nav-logout {
+    color: #999;
+    font-size: 15px;
+    text-decoration: none;
+    border: 2px solid #eee;
+    padding: 8px 20px;
+    border-radius: 30px;
+  }
+
+  /* --- メインカード：幅広で日記帳のような存在感 --- */
+  .diary-container {
+    max-width: 850px; /* 横幅を広げて見やすく */
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .welcome-card {
+    background: white;
+    border-radius: 50px; /* 角を丸くして優しく */
+    padding: 80px 40px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    border: 4px dashed #c8e6c9; /* 太めの点線で可愛く */
+  }
+
+  .welcome-title {
+    color: #444;
+    font-size: 40px; /* 特大サイズ */
+    margin-bottom: 30px;
+  }
+
+  .welcome-text {
+    color: #666;
+    font-size: 24px; /* 文字を大きく */
+    line-height: 2.2; /* 行間を広げて読みやすく */
+    margin-bottom: 60px;
+  }
+
+  /* --- 「日記をかく」特大ボタン --- */
+  .write-btn-link {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .write-btn-inner {
+    background-color: #8bc34a;
+    color: white;
+    padding: 25px 90px; /* 押しやすい巨大サイズ */
+    border-radius: 80px;
+    font-size: 32px; /* 文字も特大 */
+    font-weight: bold;
+    box-shadow: 0 10px 0 #689f38; /* 厚みを出してボタンらしく */
+    transition: 0.1s;
+    display: inline-block;
+  }
+
+  /* 押し心地：グッと深く沈む */
+  .write-btn-link:active .write-btn-inner {
+    transform: translateY(8px);
+    box-shadow: 0 2px 0 #689f38;
+  }
+
+  /* スマホ対応：画面が小さくても崩れない */
+  @media (max-width: 600px) {
+    .top-nav { padding: 15px 20px; }
+    .nav-user { font-size: 20px; }
+    .welcome-title { font-size: 26px; }
+    .welcome-text { font-size: 18px; }
+    .write-btn-inner { font-size: 22px; padding: 20px 50px; }
+    .diary-container { padding: 30px 15px; }
+  }
+</style>
+
+<div class="main-wrapper">
+  <div class="top-nav">
+    <span class="nav-user">
+      🍃 <%= current_user.name %> さんの日記帳
+    </span>
+    <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-logout" %>
+  </div>
+
+  <div class="diary-container">
+    <div class="welcome-card">
+      <h2 class="welcome-title">こんにちは、<%= current_user.name %>さん！🌻</h2>
+      <p class="welcome-text">
+        今日はどんな一日でしたか？<br>
+        お花を育てるように、<br>
+        今の気持ちをゆっくり残していきましょう。
+      </p>
+
+      <%= link_to new_diary_path, class: "write-btn-link" do %>
+        <div class="write-btn-inner">日記をかく 🐾</div>
+      <% end %>
+    </div>
+  </div>
+</div>

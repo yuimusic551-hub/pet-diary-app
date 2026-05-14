@@ -1,11 +1,15 @@
 class ApplicationController < ActionController::Base
-  # ログイン後にどこに飛ばすかを決める命令
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   def after_sign_in_path_for(resource)
-    diaries_path # 日記一覧ページ（この後作ります）へ飛ばす
+    diaries_path
   end
 
-  # 新規登録後にどこに飛ばすかを決める命令
-  def after_sign_up_path_for(resource)
-    diaries_path
+  protected
+
+  # 名前の登録を許可する魔法の言葉
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
 end
