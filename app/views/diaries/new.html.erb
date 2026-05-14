@@ -140,12 +140,27 @@
     font-weight: bold; 
     box-shadow: 0 8px 0 #e68a00; 
     cursor: pointer; 
-    transition: 0.1s; 
+    transition: 0.1s;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
   
+  /* ✨ マウスを乗せた時：肉球マウス ＆ 少し浮かせる */
+  .save-btn:hover {
+    background-color: #ffa726;
+    transform: translateY(-2px); /* 2px上に浮く */
+    box-shadow: 0 10px 0 #e68a00; /* 影を少し深くして浮遊感を出す */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
+  }
+  
+  /* ✨ クリックした瞬間：スタンプみたいに沈む！ ✨ */
   .save-btn:active { 
-    transform: translateY(4px); 
-    box-shadow: 0 2px 0 #e68a00; 
+    /* 影の分だけ下に移動させることで、ボタンが沈んだように見えます */
+    transform: translateY(6px); 
+    /* 影を薄くすることで、地面に近づいた感じを出します */
+    box-shadow: 0 2px 0 #e68a00;
+    /* ほんの少しだけ色を濃くして、押した感を強調 */
+    background-color: #f57c00;
   }
   
   .back-link { 
@@ -208,7 +223,7 @@
       </div>
 
       <%# 保存ボタン %>
-      <%= f.submit "日記を保存する ✨", class: "save-btn" %>
+      <%= f.submit "日記を保存する 🐶🐾", class: "save-btn" %>
     <% end %>
 
     <%= link_to "← もどる", diaries_path, class: "back-link" %>
