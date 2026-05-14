@@ -29,6 +29,6 @@ class DiariesController < ApplicationController
 
   def diary_params
     # :birthday を追加して、誕生日も保存できるように許可します
-    params.require(:diary).permit(:title, :content, :image, :birthday)
+    params.require(:diary).permit(:title, :content, :image, :birthday, :animal_id)
   end
 end

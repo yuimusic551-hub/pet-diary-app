@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'age_chart', to: 'diaries#age_chart'
 
   # ペットの登録・一覧
-  resources :pets, only: [:new, :create, :index]
+  resources :animals, only: [:new, :create, :index, :destroy]
 
   # 日記の管理
   resources :diaries

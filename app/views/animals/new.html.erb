@@ -1,0 +1,99 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap');
+
+  .new-animal-wrapper { 
+    background-color: #fdfaf4; 
+    min-height: 100vh; 
+    padding: 40px 20px; 
+    font-family: 'Zen Maru Gothic', sans-serif; 
+  }
+  .form-container { 
+    max-width: 500px; 
+    margin: 0 auto; 
+    background: white; 
+    padding: 40px; 
+    border-radius: 40px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    border: 3px solid #ffedcc;
+  }
+  .form-title { 
+    color: #ff9800; 
+    font-size: 26px; 
+    text-align: center; 
+    font-weight: bold; 
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+  .input-label { 
+    display: block; 
+    color: #666; 
+    font-weight: bold; 
+    font-size: 16px; 
+    margin-bottom: 8px; 
+    margin-left: 5px;
+  }
+  .input-field { 
+    width: 100%; 
+    padding: 15px; 
+    border: 2px solid #f0f0f0; 
+    border-radius: 18px; 
+    font-size: 18px; 
+    margin-bottom: 25px; 
+    box-sizing: border-box; 
+    outline: none;
+    background-color: #fafafa;
+    transition: 0.3s;
+  }
+  .input-field:focus {
+    border-color: #ff9800;
+    background-color: #fff;
+  }
+  .save-animal-btn { 
+    background-color: #ff9800; 
+    color: white; 
+    width: 100%; 
+    padding: 18px; 
+    border: none; 
+    border-radius: 50px; 
+    font-size: 20px; 
+    font-weight: bold; 
+    box-shadow: 0 6px 0 #e68a00; 
+    cursor: pointer; 
+    transition: 0.1s;
+    margin-top: 10px;
+  }
+  .save-animal-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #e68a00;
+  }
+  .back-link {
+    display: block; 
+    text-align: center; 
+    margin-top: 30px; 
+    color: #bbb; 
+    text-decoration: none;
+    font-size: 14px;
+  }
+</style>
+
+<div class="new-animal-wrapper">
+  <div class="form-container">
+    <h2 class="form-title">🏠 うちの子を登録 🐾</h2>
+
+    <%= form_with(model: @animal, local: true) do |f| %>
+      <div>
+        <%= f.label :name, "お名前（例：ハムちゃん）", class: "input-label" %>
+        <%= f.text_field :name, class: "input-field", placeholder: "お名前を教えてね", required: true %>
+      </div>
+
+      <div>
+        <%= f.label :birthday, "お誕生日（任意）", class: "input-label" %>
+        <%= f.date_field :birthday, class: "input-field" %>
+      </div>
+
+      <%= f.submit "この子を登録する ✨", class: "save-animal-btn" %>
+    <% end %>
+
+    <%= link_to "← 戻る", diaries_path, class: "back-link" %>
+  </div>
+</div>

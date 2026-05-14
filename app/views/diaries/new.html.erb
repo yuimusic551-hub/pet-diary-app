@@ -180,12 +180,27 @@
       今日のかわいい姿や、<br>元気な様子を記録しましょう。
     </p>
 
-    <%= form_with(model: @diary) do |f| %>
-      <%# タイトル %>
-      <div>
-        <%= f.label :title, "今日の一言（タイトル）", class: "input-label" %>
-        <%= f.text_field :title, placeholder: "例：お気に入りの場所でお昼寝", class: "input-field" %>
-      </div>
+    <%= form_with(model: @diary, local: true) do |f| %>
+  
+  <%# 1. ペットの選択（ここがフォルダ分けの鍵になります！） %>
+  <div style="margin-bottom: 30px;">
+    <%= f.label :animal_id, "主役はどの子？ 🐾", class: "input-label" %>
+    
+    <%# 登録済みのペットをリストで表示し、選んでもらいます %>
+    <%= f.collection_select :animal_id, current_user.animals, :id, :name, 
+        { prompt: "うちの子を選んでね" }, 
+        { class: "input-field", style: "background-color: #fff9f0; border: 2px solid #ffedcc;" } %>
+    
+    <p style="font-size: 14px; color: #ff9800; margin-top: 5px; margin-left: 5px;">
+      ※まだ登録していない場合は <%= link_to "こちらから登録 🐾", new_animal_path, style: "font-weight: bold; color: #ff9800;" %>
+    </p>
+  </div>
+
+  <%# 2. 日記のタイトル %>
+  <div style="margin-bottom: 25px;">
+    <%= f.label :title, "今日の一言（タイトル）", class: "input-label" %>
+    <%= f.text_field :title, placeholder: "例：お気に入りの場所でお昼寝", class: "input-field" %>
+  </div>
 
       <%# 🎂 誕生日（マイグレーション済み） %>
       <div style="margin-bottom: 30px;">
