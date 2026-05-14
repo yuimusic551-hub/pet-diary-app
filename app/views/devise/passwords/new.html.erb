@@ -1,16 +1,122 @@
-<h2>Forgot your password?</h2>
+<style>
+  /* 背景とカードの設定 */
+  .password-reset-body {
+    background-color: #ffeef0; /* 優しいピンクの背景 */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+  }
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  .password-reset-card {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    text-align: center;
+  }
 
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+  /* ヘッダー画像（オカメインコ） */
+  .bird-header-img {
+    width: 100%;
+    display: block;
+  }
+
+  /* フォーム内の余白と文字 */
+  .form-content {
+    padding: 30px;
+  }
+
+  .reset-title {
+    color: #832a2a;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .reset-description {
+    color: #8d6e63;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+
+  /* 入力欄（カプセル型） */
+  .input-field {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #ffdde1;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  /* 送信ボタン（ピンクのぷっくりボタン） */
+  .submit-btn {
+    background-color: #f08e91;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 5px 0 #d67578;
+    transition: all 0.2s;
+  }
+
+  .submit-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #d67578;
+  }
+
+  .links-area {
+    margin-top: 20px;
+  }
+
+  .links-area a {
+    color: #b18a8a;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 0 10px;
+  }
+</style>
+
+<div class="password-reset-body">
+  <div class="password-reset-card">
+    
+    <%= image_tag 'forgot_password_header.jpg', class: 'bird-header-img' %>
+
+    <div class="form-content">
+      <h2 class="reset-title">あれれ？わすれちゃった？</h2>
+      <p class="reset-description">
+        大丈夫よ！登録したメールアドレスを教えてくれたら、<br>
+        作りなおすためのメールをおくるわね。
+      </p>
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力", class: "input-field" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "メールをおくる", class: "submit-btn" %>
+        </div>
+      <% end %>
+
+      <div class="links-area">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me password reset instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

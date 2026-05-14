@@ -27,8 +27,7 @@
     z-index: 1;
   }
 
-  /* 種のサイズ設定 */
-  .s1 { top: 5%; width: 150px; animation-duration: 12s; animation-delay: 0s; } /* 特大 */
+  .s1 { top: 5%; width: 150px; animation-duration: 12s; }
   .s2 { top: 35%; width: 60px;  animation-duration: 22s; animation-delay: -5s; }
   .s3 { top: 65%; width: 90px;  animation-duration: 16s; animation-delay: -2s; }
   .s4 { top: 85%; width: 70px;  animation-duration: 25s; animation-delay: -10s; }
@@ -64,45 +63,35 @@
     z-index: 10;
   }
 
-  /* --- 修正ポイント：ボタンエリア --- */
+  /* --- 木目調ボタンの設定 --- */
   .btn-area {
     position: relative;
-    display: flex;            /* 中央寄せのためにflexを追加 */
+    display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 450px;         /* 肉球がはみ出す分、少し広めに確保 */
+    max-width: 550px; /* 画像が少し横長なので少し広めに */
     z-index: 15;
   }
 
-  .btn-login {
-    background-color: #f39242;
-    color: white;
-    padding: 20px 0;
-    text-decoration: none;
-    border-radius: 60px;
-    font-size: 26px;
-    font-weight: bold;
+  .login-image-btn {
+    width: 100%;
+    height: auto;
     display: block;
-    width: 100%;             /* エリアいっぱいに広げる */
-    box-shadow: 0 8px 0 #d37a2d;
-    text-align: center;      /* 文字を中央に */
+    cursor: pointer;
+    transition: transform 0.1s; /* 押し心地を少しクイックに */
   }
 
-  .paw-img {
-    position: absolute;
-    right: -20px;            /* 重なり具合を調整 */
-    top: -15px;              /* 上下の位置を調整 */
-    width: 120px;            /* 肉球のサイズ */
-    z-index: 20;
-    pointer-events: none;    /* ボタンをクリックしやすくする */
+  /* 押した時に「ポチッ」と沈む演出 */
+  .login-image-btn:active {
+    transform: translateY(4px) scale(0.98); /* わずかに小さくして沈み込みを表現 */
+    filter: brightness(0.95);
   }
 
   /* スマホ対応 */
   @media (max-width: 600px) {
     .main-title { font-size: 32px; }
     .photo-frame { width: 95%; }
-    .btn-login { font-size: 22px; }
-    .paw-img { width: 90px; right: -10px; top: -10px; }
+    .catch-phrase { font-size: 16px; }
   }
 </style>
 
@@ -124,8 +113,9 @@
   </p>
 
   <div class="btn-area">
-    <%= link_to "はじめる（ログイン）", new_user_session_path, class: "btn-login" %>
-    <%= image_tag 'paw_button.png', class: 'paw-img' %>
+    <%= link_to new_user_session_path do %>
+      <%= image_tag 'login_btn_wood.jpg', class: 'login-image-btn' %>
+    <% end %>
   </div>
 
 </div>

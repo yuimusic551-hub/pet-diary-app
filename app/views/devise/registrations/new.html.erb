@@ -1,29 +1,112 @@
-<h2>Sign up</h2>
+<style>
+  /* ログイン画面と共通のスタイル（桜バージョン） */
+  .auth-wrapper {
+    background-color: #fff5f7;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Zen Maru Gothic', 'Hiragino Sans', sans-serif;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  @keyframes sakura-fall {
+    0% { top: -10%; left: -5%; transform: rotate(0deg) translateX(0); }
+    100% { top: 110%; left: 105%; transform: rotate(720deg) translateX(100px); }
+  }
 
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
+  .sakura {
+    position: absolute;
+    pointer-events: none;
+    animation: sakura-fall 15s linear infinite;
+    opacity: 0.8;
+    z-index: 1;
+  }
 
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+  .p1 { top: -10%; left: 10%; font-size: 80px; animation-duration: 12s; }
+  .p2 { top: -10%; left: 30%; font-size: 30px; animation-duration: 18s; }
+  .p3 { top: -10%; left: 60%; font-size: 40px; animation-duration: 15s; }
+  .p4 { top: -10%; left: 80%; font-size: 25px; animation-duration: 20s; }
+
+  .auth-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.2);
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ffe4e8;
+    text-align: center;
+    z-index: 10;
+  }
+
+  h2 { color: #d81b60; margin-bottom: 30px; font-size: 24px; }
+  .field { margin-bottom: 15px; text-align: left; }
+  label { color: #ad1457; font-weight: bold; display: block; margin-bottom: 5px; font-size: 14px; }
+  
+  input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ffe4e8;
+    border-radius: 12px;
+    box-sizing: border-box;
+    background: #fffafa;
+  }
+
+  .actions input {
+    background-color: #f06292; /* 少し濃いめのピンク */
+    color: white;
+    border: none;
+    padding: 16px;
+    width: 100%;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #c2185b;
+    margin-top: 15px;
+  }
+
+  .links { margin-top: 25px; border-top: 1px dotted #ffc1cc; padding-top: 15px; }
+  .links a { color: #f06292; text-decoration: none; font-size: 14px; }
+</style>
+
+<div class="auth-wrapper">
+  <div class="sakura p1">🌸</div>
+  <div class="sakura p2">🌸</div>
+  <div class="sakura p3">🌸</div>
+  <div class="sakura p4">🌸</div>
+
+  <div class="auth-card">
+    <h2>🌸 はじめまして 🌸</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :email, "メールアドレス" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password, "パスワード（6文字以上）" %>
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation, "パスワード（確認用）" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "登録する" %>
+      </div>
     <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
-  </div>
 
-  <div class="field">
-    <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+    <div class="links">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
