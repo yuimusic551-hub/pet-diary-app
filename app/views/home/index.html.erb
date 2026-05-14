@@ -1,5 +1,5 @@
 <style>
-  /* 全体の背景設定 */
+  /* --- 共通設定 --- */
   .top-wrapper {
     background-color: #fdfaf4;
     min-height: 100vh;
@@ -13,90 +13,83 @@
     overflow: hidden;
   }
 
-  /* 種のアニメーション */
-  @keyframes roll-seed {
-    0% { left: -200px; transform: rotate(0deg); }
-    100% { left: 110%; transform: rotate(720deg); }
+  /* --- ボタンエリアの修正 --- */
+  .btn-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    z-index: 15;
   }
 
-  .moving-seed {
-    position: absolute;
-    pointer-events: none;
-    animation: roll-seed 18s linear infinite;
-    opacity: 0.9;
-    z-index: 1;
+  /* 【重要】リンクの範囲を「画像の大きさ」に厳密に合わせる */
+  .login-link-wrap {
+    display: block;
+    width: fit-content; /* 中身のサイズにピッタリ合わせる */
+    line-height: 0;      /* 下側の謎の隙間を消す */
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent; /* スマホの青い枠を消す */
   }
 
+  .login-image-btn {
+    width: 320px;  /* お好みのサイズに固定（または max-width） */
+    height: auto;
+    display: block;
+    cursor: pointer;
+    transition: all 0.1s; /* 動きをなめらかに */
+  }
+
+  /* --- 押している感覚（沈み込み演出） --- */
+  .login-link-wrap:active .login-image-btn {
+    transform: translateY(6px); /* 下に6ピクセル沈む */
+    filter: brightness(0.9);    /* 少し暗くして影を表現 */
+  }
+
+  /* ログイン状態通知ボックス（以前と同じ） */
+  .status-info-area {
+    margin-top: 25px;
+    text-align: center;
+  }
+  .status-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #f08e91;
+    padding: 15px 30px;
+    border-radius: 30px;
+    display: inline-block;
+  }
+  .status-msg {
+    color: #d81b60;
+    font-size: 15px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .logout-btn {
+    background-color: #f06292;
+    color: white !important;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 3px 0 #c2185b;
+    display: inline-block;
+  }
+
+  /* 既存のアニメーションなどはそのまま */
+  .main-title { color: #5d4037; font-size: 48px; margin-bottom: 40px; z-index: 10; }
+  .photo-frame { background: white; padding: 15px 15px 55px 15px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); border: 1px solid #eee; margin-bottom: 50px; transform: rotate(-1.5deg); display: inline-block; width: 90%; max-width: 650px; z-index: 10; }
+  .catch-phrase { color: #8d6e63; font-size: 20px; font-weight: bold; margin-bottom: 50px; z-index: 10; }
+  @keyframes roll-seed { 0% { left: -200px; transform: rotate(0deg); } 100% { left: 110%; transform: rotate(720deg); } }
+  .moving-seed { position: absolute; pointer-events: none; animation: roll-seed 18s linear infinite; opacity: 0.9; z-index: 1; }
   .s1 { top: 5%; width: 150px; animation-duration: 12s; }
   .s2 { top: 35%; width: 60px;  animation-duration: 22s; animation-delay: -5s; }
   .s3 { top: 65%; width: 90px;  animation-duration: 16s; animation-delay: -2s; }
   .s4 { top: 85%; width: 70px;  animation-duration: 25s; animation-delay: -10s; }
-
-  /* タイトル */
-  .main-title {
-    color: #5d4037;
-    font-size: 48px;
-    margin-bottom: 40px;
-    z-index: 10;
-  }
-
-  /* 写真フレーム */
-  .photo-frame {
-    background: white;
-    padding: 15px 15px 55px 15px; 
-    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-    border: 1px solid #eee;
-    margin-bottom: 50px;
-    transform: rotate(-1.5deg);
-    display: inline-block;
-    width: 90%;
-    max-width: 650px;
-    z-index: 10;
-  }
-
-  /* キャッチコピー */
-  .catch-phrase {
-    color: #8d6e63;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 50px;
-    z-index: 10;
-  }
-
-  /* --- 木目調ボタンの設定 --- */
-  .btn-area {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 550px; /* 画像が少し横長なので少し広めに */
-    z-index: 15;
-  }
-
-  .login-image-btn {
-    width: 100%;
-    height: auto;
-    display: block;
-    cursor: pointer;
-    transition: transform 0.1s; /* 押し心地を少しクイックに */
-  }
-
-  /* 押した時に「ポチッ」と沈む演出 */
-  .login-image-btn:active {
-    transform: translateY(4px) scale(0.98); /* わずかに小さくして沈み込みを表現 */
-    filter: brightness(0.95);
-  }
-
-  /* スマホ対応 */
-  @media (max-width: 600px) {
-    .main-title { font-size: 32px; }
-    .photo-frame { width: 95%; }
-    .catch-phrase { font-size: 16px; }
-  }
 </style>
 
 <div class="top-wrapper">
-  
   <%= image_tag 'sunflower_seed.png', class: 'moving-seed s1' %>
   <%= image_tag 'sunflower_seed.png', class: 'moving-seed s2' %>
   <%= image_tag 'sunflower_seed.png', class: 'moving-seed s3' %>
@@ -113,9 +106,26 @@
   </p>
 
   <div class="btn-area">
-    <%= link_to new_user_session_path do %>
+    <%# リンクの範囲を「画像のサイズ」に強制的に絞る %>
+    <%= link_to new_user_session_path, class: "login-link-wrap" do %>
       <%= image_tag 'login_btn_wood.jpg', class: 'login-image-btn' %>
     <% end %>
-  </div>
 
+    <% if user_signed_in? || flash.any? %>
+      <div class="status-info-area">
+        <div class="status-box">
+          <span class="status-msg">
+            <% if flash.any? %>
+              <% flash.each do |name, msg| %><%= msg %><% end %>
+            <% else %>
+              ログイン中です
+            <% end %>
+          </span>
+          <% if user_signed_in? %>
+            <%= link_to "ログアウトする", destroy_user_session_path, data: { turbo_method: :delete }, class: "logout-btn" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

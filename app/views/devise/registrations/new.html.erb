@@ -1,5 +1,5 @@
 <style>
-  /* ログイン画面と共通のスタイル（桜バージョン） */
+  /* 🌸 全体の背景設定 */
   .auth-wrapper {
     background-color: #fff5f7;
     min-height: 100vh;
@@ -12,6 +12,7 @@
     overflow: hidden;
   }
 
+  /* 🌸 桜のアニメーション */
   @keyframes sakura-fall {
     0% { top: -10%; left: -5%; transform: rotate(0deg) translateX(0); }
     100% { top: 110%; left: 105%; transform: rotate(720deg) translateX(100px); }
@@ -30,6 +31,7 @@
   .p3 { top: -10%; left: 60%; font-size: 40px; animation-duration: 15s; }
   .p4 { top: -10%; left: 80%; font-size: 25px; animation-duration: 20s; }
 
+  /* 🌸 入力カード */
   .auth-card {
     background: rgba(255, 255, 255, 0.95);
     padding: 40px;
@@ -40,23 +42,35 @@
     border: 1px solid #ffe4e8;
     text-align: center;
     z-index: 10;
+    position: relative;
   }
 
-  h2 { color: #d81b60; margin-bottom: 30px; font-size: 24px; }
-  .field { margin-bottom: 15px; text-align: left; }
-  label { color: #ad1457; font-weight: bold; display: block; margin-bottom: 5px; font-size: 14px; }
+  .auth-card h2 { color: #d81b60; margin-bottom: 25px; font-size: 24px; font-weight: bold; }
+  
+  .field { margin-bottom: 20px; text-align: left; }
+  .field label { color: #ad1457; font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px; }
   
   input[type="email"], input[type="password"] {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: 2px solid #ffe4e8;
     border-radius: 12px;
     box-sizing: border-box;
     background: #fffafa;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
   }
 
+  input:focus {
+    border-color: #f06292;
+    background: white;
+    box-shadow: 0 0 10px rgba(240, 98, 146, 0.1);
+  }
+
+  /* 🌸 登録ボタン */
   .actions input {
-    background-color: #f06292; /* 少し濃いめのピンク */
+    background-color: #f06292;
     color: white;
     border: none;
     padding: 16px;
@@ -66,11 +80,33 @@
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 5px 0 #c2185b;
-    margin-top: 15px;
+    margin-top: 10px;
+    transition: all 0.1s;
   }
 
+  .actions input:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #c2185b;
+  }
+
+  /* 🌸 エラーメッセージ：カード内にスクロールで収める */
+  #error_explanation {
+    background: #fff0f5;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #d81b60;
+    font-size: 13px;
+    text-align: left;
+    border: 1px solid #ffc1cc;
+    max-height: 160px;
+    overflow-y: auto;
+  }
+  #error_explanation h2 { display: none; }
+  #error_explanation ul { list-style: "🌸 "; padding-left: 20px; margin: 0; }
+
   .links { margin-top: 25px; border-top: 1px dotted #ffc1cc; padding-top: 15px; }
-  .links a { color: #f06292; text-decoration: none; font-size: 14px; }
+  .links a { color: #f06292; text-decoration: none; font-size: 14px; font-weight: bold; }
 </style>
 
 <div class="auth-wrapper">
@@ -83,21 +119,22 @@
     <h2>🌸 はじめまして 🌸</h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%# エラー通知を表示 %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field">
         <%= f.label :email, "メールアドレス" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "お使いのメールアドレス" %>
       </div>
 
       <div class="field">
         <%= f.label :password, "パスワード（6文字以上）" %>
-        <%= f.password_field :password, autocomplete: "new-password" %>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "6文字以上で決めてね" %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation, "パスワード（確認用）" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <%= f.label :password_confirmation, "パスワード（もういちど）" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "おなじパスワードを入力" %>
       </div>
 
       <div class="actions">

@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PetDiaryApp</title>
+    <title>うちの子日記</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%# お母様に優しい丸文字フォント %>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <style>
+      /* 全体で使う共通の基本設定 */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Zen Maru Gothic', sans-serif;
+        background-color: #fdfaf4; /* 万が一、背景が消えても暗くならないように */
+      }
+    </style>
   </head>
 
   <body>
+    <%# 
+      通知メッセージ(flash)は、各画面(index.html.erbなど)の
+      ふさわしい場所に直接書く方針にするため、ここでは yield のみ！
+    %>
     <%= yield %>
   </body>
 </html>
