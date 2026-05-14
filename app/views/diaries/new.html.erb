@@ -1,29 +1,228 @@
 <style>
-  .new-diary-wrapper { background-color: #fdfaf4; min-height: 100vh; padding: 40px 20px; font-family: 'Zen Maru Gothic', sans-serif; }
-  .form-container { max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
-  .form-title { color: #8bc34a; font-size: 32px; margin-bottom: 35px; text-align: center; font-weight: bold; }
-  .input-label { display: block; color: #555; font-weight: bold; font-size: 20px; margin-bottom: 12px; }
-  .input-field { width: 100%; padding: 18px; border: 2px solid #e0e0e0; border-radius: 20px; font-size: 20px; margin-bottom: 30px; box-sizing: border-box; background-color: #fafafa; }
-  .text-area { height: 350px; line-height: 1.8; }
-  .save-btn { background-color: #ff9800; color: white; width: 100%; padding: 22px; border: none; border-radius: 60px; font-size: 26px; font-weight: bold; box-shadow: 0 8px 0 #e68a00; cursor: pointer; transition: 0.1s; }
-  .save-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #e68a00; }
-  .back-link { display: block; text-align: center; margin-top: 30px; color: #999; text-decoration: none; font-size: 16px; }
+  /* 🌸 全体の背景設定 */
+  .new-diary-wrapper { 
+    background-color: #fdfaf4; 
+    min-height: 100vh; 
+    padding: 40px 20px; 
+    font-family: 'Zen Maru Gothic', sans-serif; 
+  }
+  
+  /* 🌸 入力カード */
+  .form-container { 
+    max-width: 700px; 
+    margin: 0 auto; 
+    background: white; 
+    padding: 40px; 
+    border-radius: 40px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    border: 1px solid #eee; 
+  }
+
+  .form-title { 
+    color: #8bc34a; 
+    font-size: 32px; 
+    margin-bottom: 10px; 
+    text-align: center; 
+    font-weight: bold; 
+  }
+
+  .form-subtitle {
+    color: #8d6e63;
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .input-label { 
+    display: block; 
+    color: #555; 
+    font-weight: bold; 
+    font-size: 20px; 
+    margin-bottom: 12px; 
+  }
+  
+  /* 🌸 入力欄のデザイン */
+  .input-field { 
+    width: 100%; 
+    padding: 18px; 
+    border: 2px solid #e0e0e0; 
+    border-radius: 20px; 
+    font-size: 20px; 
+    margin-bottom: 30px; 
+    box-sizing: border-box; 
+    background-color: #fafafa; 
+    outline: none; 
+    transition: 0.3s;
+  }
+  
+  .input-field:focus { 
+    border-color: #8bc34a; 
+    background-color: white; 
+  }
+  
+  .text-area { 
+    height: 300px; 
+    line-height: 1.8; 
+  }
+
+  /* 🌸 🔍 年齢を調べるボタン */
+  .search-age-btn {
+    text-decoration: none;
+    display: inline-block;
+    background: #fff;
+    color: #e67e22;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 15px;
+    border: 2px solid #ffcc80;
+    transition: 0.2s;
+  }
+  .search-age-btn:hover {
+    background: #fff9f0;
+    transform: translateY(-2px);
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
+  }
+
+  /* 🌸 写真選択エリア */
+  .image-upload-box {
+    background-color: #fff9f0;
+    border: 3px dashed #ffcc80;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .paw-button {
+    display: inline-block;
+    background-color: #ffcc80;
+    color: #e67e22;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    border: 3px solid #ffb74d;
+    transition: all 0.2s;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #ffb74d;
+  }
+
+  .paw-button:hover {
+    background-color: #ffb74d;
+    transform: scale(1.05);
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
+  }
+
+  .paw-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #ffb74d;
+  }
+
+  .image-instruction { 
+    color: #e67e22; 
+    font-size: 16px; 
+    font-weight: bold; 
+    margin-top: 20px; 
+  }
+
+  /* 🌸 保存ボタン */
+  .save-btn { 
+    background-color: #ff9800; 
+    color: white; 
+    width: 100%; 
+    padding: 22px; 
+    border: none; 
+    border-radius: 60px; 
+    font-size: 26px; 
+    font-weight: bold; 
+    box-shadow: 0 8px 0 #e68a00; 
+    cursor: pointer; 
+    transition: 0.1s; 
+  }
+  
+  .save-btn:active { 
+    transform: translateY(4px); 
+    box-shadow: 0 2px 0 #e68a00; 
+  }
+  
+  .back-link { 
+    display: block; 
+    text-align: center; 
+    margin-top: 30px; 
+    color: #999; 
+    text-decoration: none; 
+    font-size: 16px; 
+  }
 </style>
 
 <div class="new-diary-wrapper">
   <div class="form-container">
-    <h2 class="form-title">今日の日記 🍃</h2>
+    <h2 class="form-title">うちの子日記 🐾</h2>
+    <p class="form-subtitle">
+      今日のかわいい姿や、<br>元気な様子を記録しましょう。
+    </p>
+
     <%= form_with(model: @diary) do |f| %>
+      <%# タイトル %>
       <div>
-        <%= f.label :title, "見出し（タイトル）", class: "input-label" %>
-        <%= f.text_field :title, placeholder: "例：ひまわりが綺麗に咲いたよ", class: "input-field" %>
+        <%= f.label :title, "今日の一言（タイトル）", class: "input-label" %>
+        <%= f.text_field :title, placeholder: "例：お気に入りの場所でお昼寝", class: "input-field" %>
       </div>
+
+      <%# 🎂 誕生日（マイグレーション済み） %>
+      <div style="margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <label class="input-label" style="margin-bottom: 0;">うちの子の誕生日</label>
+          <%# 早見表へのリンク %>
+          <%= link_to age_chart_path, target: "_blank", class: "search-age-btn" do %>
+            🔍 年齢を調べる 🐾
+          <% end %>
+        </div>
+        <%= f.date_field :birthday, class: "input-field" %>
+        <p style="color: #888; font-size: 14px; margin-top: -20px; margin-bottom: 20px;">
+          ※誕生日を入れると、後で年齢を確認できます 💡
+        </p>
+      </div>
+
+      <%# 本文 %>
       <div>
         <%= f.label :content, "今日のできごと", class: "input-label" %>
-        <%= f.text_area :content, placeholder: "ここにゆっくりと書いてくださいね", class: "input-field text-area" %>
+        <%= f.text_area :content, placeholder: "どんな様子だったか、ゆっくり書いてね", class: "input-field text-area" %>
       </div>
+
+      <%# 📸 写真選択エリア %>
+      <div style="margin-bottom: 30px;">
+        <label class="input-label">今日の写真 📸</label>
+        <div class="image-upload-box">
+          <label class="paw-button">
+            <%= f.file_field :image, accept: 'image/*', style: "display: none;", id: "image-upload-input" %>
+            🐾 写真を選ぶ
+          </label>
+          <p class="image-instruction" id="file-name-display">
+            ※ ボタンを押すと、写真がえらべます 🐾
+          </p>
+        </div>
+      </div>
+
+      <%# 保存ボタン %>
       <%= f.submit "日記を保存する ✨", class: "save-btn" %>
     <% end %>
+
     <%= link_to "← もどる", diaries_path, class: "back-link" %>
   </div>
 </div>
+
+<script>
+  // 写真選択後の表示切り替え
+  document.getElementById('image-upload-input').addEventListener('change', function(e) {
+    if (e.target.files.length > 0) {
+      const fileName = e.target.files[0].name;
+      const display = document.getElementById('file-name-display');
+      display.innerText = "選ばれた写真： " + fileName + " ✅";
+      display.style.color = "#4caf50";
+    }
+  });
+</script>

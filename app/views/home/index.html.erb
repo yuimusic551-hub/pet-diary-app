@@ -31,16 +31,24 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* ✨ ログイン画像ボタンに肉球マウスを適用 */
   .login-image-btn {
     width: 320px;
     height: auto;
     display: block;
     cursor: pointer;
-    transition: all 0.1s;
+    transition: all 0.2s; /* 少しゆったりした動きに */
   }
 
+  /* マウスを置いた時：ふんわり大きく、肉球に変わる */
+  .login-link-wrap:hover .login-image-btn {
+    transform: scale(1.05);
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
+  }
+
+  /* 押した時：沈み込む */
   .login-link-wrap:active .login-image-btn {
-    transform: translateY(6px);
+    transform: translateY(6px) scale(1.0);
     filter: brightness(0.9);
   }
 
@@ -65,35 +73,38 @@
   }
 
   /* --- ボタンのデザイン（日記へ・ログアウト） --- */
-  .go-diaries-btn {
-    background-color: #8bc34a;
-    color: white !important;
+  .go-diaries-btn, .logout-btn {
     text-decoration: none;
     padding: 8px 20px;
     border-radius: 25px;
     font-size: 14px;
     font-weight: bold;
-    box-shadow: 0 3px 0 #689f38;
     display: inline-block;
     transition: 0.1s;
+  }
+
+  /* 肉球マウスをここにも適用 */
+  .go-diaries-btn:hover, .logout-btn:hover {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
+    opacity: 0.8;
+  }
+
+  .go-diaries-btn {
+    background-color: #8bc34a;
+    color: white !important;
+    box-shadow: 0 3px 0 #689f38;
   }
   .go-diaries-btn:active { transform: translateY(2px); box-shadow: none; }
 
   .logout-btn {
     background-color: #f06292;
     color: white !important;
-    text-decoration: none;
-    padding: 8px 20px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: bold;
     box-shadow: 0 3px 0 #c2185b;
-    display: inline-block;
   }
   .logout-btn:active { transform: translateY(2px); box-shadow: none; }
 
   /* --- 装飾要素 --- */
-  .main-title { color: #5d4037; font-size: 48px; margin-bottom: 40px; z-index: 10; }
+  .main-title { color: #5d4037; font-size: 48px; margin-bottom: 40px; z-index: 10; font-weight: bold; }
   .photo-frame { background: white; padding: 15px 15px 55px 15px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); border: 1px solid #eee; margin-bottom: 50px; transform: rotate(-1.5deg); display: inline-block; width: 90%; max-width: 650px; z-index: 10; }
   .catch-phrase { color: #8d6e63; font-size: 20px; font-weight: bold; margin-bottom: 50px; z-index: 10; }
 
@@ -104,12 +115,12 @@
   .s3 { top: 65%; width: 90px;  animation-duration: 16s; animation-delay: -2s; }
   .s4 { top: 85%; width: 70px;  animation-duration: 25s; animation-delay: -10s; }
 
-  /* --- 【ここがスマホ対応！】 --- */
+  /* スマホ対応 */
   @media (max-width: 600px) {
     .main-title { font-size: 32px; margin-bottom: 20px; }
     .photo-frame { width: 95%; padding: 10px 10px 40px 10px; margin-bottom: 30px; }
     .catch-phrase { font-size: 16px; margin-bottom: 30px; padding: 0 10px; }
-    .login-image-btn { width: 280px; } /* スマホではボタンを少し小さく */
+    .login-image-btn { width: 280px; }
     .status-box { padding: 12px 20px; width: 90%; }
     .status-msg { font-size: 13px; }
     .go-diaries-btn, .logout-btn { font-size: 12px; padding: 6px 15px; }
@@ -133,6 +144,7 @@
   </p>
 
   <div class="btn-area">
+    <%# ログインリンク：ホバーで肉球に変わります %>
     <%= link_to new_user_session_path, class: "login-link-wrap" do %>
       <%= image_tag 'login_btn_wood.jpg', class: 'login-image-btn' %>
     <% end %>
@@ -144,7 +156,7 @@
             <% if flash.any? %>
               <% flash.each do |name, msg| %><%= msg %><% end %>
             <% else %>
-              おかえりなさい！ログイン中です 🐾
+              おかえりなさい！ログイン中ですよ 🐾
             <% end %>
           </span>
 

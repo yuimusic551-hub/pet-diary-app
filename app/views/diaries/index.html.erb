@@ -1,123 +1,136 @@
 <style>
-  /* --- 全体設定：大きく、ゆったり --- */
-  .main-wrapper {
-    background-color: #f0f7f0; /* 爽やかな若葉色 */
+  /* 🌸 全体の背景 */
+  .mypage-wrapper {
+    background-color: #fdfaf4;
     min-height: 100vh;
-    font-family: 'Zen Maru Gothic', sans-serif;
-  }
-
-  /* --- ヘッダー：お名前を主役に --- */
-  .top-nav {
-    background-color: white;
-    padding: 25px 40px; /* 高さを出してゆったり */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  }
-
-  .nav-user {
-    color: #4caf50;
-    font-weight: bold;
-    font-size: 28px; /* かなり大きくしました */
-  }
-
-  .nav-logout {
-    color: #999;
-    font-size: 15px;
-    text-decoration: none;
-    border: 2px solid #eee;
-    padding: 8px 20px;
-    border-radius: 30px;
-  }
-
-  /* --- メインカード：幅広で日記帳のような存在感 --- */
-  .diary-container {
-    max-width: 850px; /* 横幅を広げて見やすく */
-    margin: 0 auto;
-    padding: 60px 20px;
+    padding: 40px 20px;
+    font-family: 'Zen Maru Gothic', 'Hiragino Sans', sans-serif;
     text-align: center;
   }
 
-  .welcome-card {
+  /* 🌸 挨拶ボックス */
+  .greeting-box {
     background: white;
-    border-radius: 50px; /* 角を丸くして優しく */
-    padding: 80px 40px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    border: 4px dashed #c8e6c9; /* 太めの点線で可愛く */
+    max-width: 600px;
+    margin: 0 auto 40px;
+    padding: 30px;
+    border-radius: 30px;
+    border: 2px dashed #8bc34a;
   }
+  .greeting-title { color: #555; font-size: 28px; font-weight: bold; margin-bottom: 15px; }
+  .greeting-text { color: #888; font-size: 16px; line-height: 1.6; }
 
-  .welcome-title {
-    color: #444;
-    font-size: 40px; /* 特大サイズ */
-    margin-bottom: 30px;
-  }
-
-  .welcome-text {
-    color: #666;
-    font-size: 24px; /* 文字を大きく */
-    line-height: 2.2; /* 行間を広げて読みやすく */
-    margin-bottom: 60px;
-  }
-
-  /* --- 「日記をかく」特大ボタン --- */
+  /* 🌸 日記をかくボタン */
   .write-btn-link {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
+    display: inline-block;
     text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
+    margin-bottom: 10px;
   }
-
   .write-btn-inner {
     background-color: #8bc34a;
     color: white;
-    padding: 25px 90px; /* 押しやすい巨大サイズ */
-    border-radius: 80px;
-    font-size: 32px; /* 文字も特大 */
+    padding: 20px 50px;
+    border-radius: 60px;
+    font-size: 26px;
     font-weight: bold;
-    box-shadow: 0 10px 0 #689f38; /* 厚みを出してボタンらしく */
-    transition: 0.1s;
-    display: inline-block;
+    box-shadow: 0 8px 0 #689f38;
+    transition: 0.2s;
   }
 
-  /* 押し心地：グッと深く沈む */
+  /* ✨ マウスを乗せたら肉球マークに変身！ */
+  .write-btn-link:hover .write-btn-inner {
+    transform: scale(1.05);
+    background-color: #9ccc65;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
+  }
   .write-btn-link:active .write-btn-inner {
-    transform: translateY(8px);
+    transform: translateY(4px);
     box-shadow: 0 2px 0 #689f38;
   }
 
-  /* スマホ対応：画面が小さくても崩れない */
+  /* 🌸 【追記】さいしょの画面へもどるリンク */
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #999;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.2s;
+  }
+  /* ✨ ここにも肉球マークを適用 */
+  .back-link:hover {
+    color: #f06292;
+    transform: scale(1.02);
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
+  }
+
+  /* 🌸 日記一覧（アルバムエリア） */
+  .diary-list {
+    max-width: 800px;
+    margin: 50px auto;
+    display: grid;
+    gap: 30px;
+  }
+  .diary-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    text-align: left;
+    border: 1px solid #eee;
+  }
+  .diary-image { width: 100%; height: auto; display: block; }
+  .diary-content { padding: 25px; }
+  .diary-date { color: #8bc34a; font-weight: bold; font-size: 14px; }
+  .diary-title { color: #555; font-size: 22px; margin: 10px 0; font-weight: bold; }
+  .diary-text { color: #777; line-height: 1.8; font-size: 16px; white-space: pre-wrap; }
+
+  /* スマホ対応 */
   @media (max-width: 600px) {
-    .top-nav { padding: 15px 20px; }
-    .nav-user { font-size: 20px; }
-    .welcome-title { font-size: 26px; }
-    .welcome-text { font-size: 18px; }
-    .write-btn-inner { font-size: 22px; padding: 20px 50px; }
-    .diary-container { padding: 30px 15px; }
+    .write-btn-inner { font-size: 20px; padding: 15px 30px; }
+    .greeting-title { font-size: 22px; }
+    .back-link { font-size: 16px; }
   }
 </style>
 
-<div class="main-wrapper">
-  <div class="top-nav">
-    <span class="nav-user">
-      🍃 <%= current_user.name %> さんの日記帳
-    </span>
-    <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-logout" %>
+<div class="mypage-wrapper">
+  
+  <%# 挨拶エリア %>
+  <div class="greeting-box">
+    <h2 class="greeting-title">こんにちは、<%= current_user.name %> さん！🌻</h2>
+    <p class="greeting-text">
+      今日はお花に水をあげましたか？<br>
+      今の気持ちを、ゆっくり残していきましょう。
+    </p>
   </div>
 
-  <div class="diary-container">
-    <div class="welcome-card">
-      <h2 class="welcome-title">こんにちは、<%= current_user.name %>さん！🌻</h2>
-      <p class="welcome-text">
-        今日はどんな一日でしたか？<br>
-        お花を育てるように、<br>
-        今の気持ちをゆっくり残していきましょう。
-      </p>
+  <%# 日記をかくボタン %>
+  <%= link_to new_diary_path, class: "write-btn-link" do %>
+    <div class="write-btn-inner">日記を書く 🐾</div>
+  <% end %>
 
-      <%= link_to new_diary_path, class: "write-btn-link" do %>
-        <div class="write-btn-inner">日記をかく 🐾</div>
+  <%# 🌟 【追記】トップページ（ひまわりの種が転がる画面）へのリンク %>
+  <%= link_to "← 最初の画面へもどる", root_path, class: "back-link" %>
+
+  <%# 日記一覧（アルバム） %>
+  <div class="diary-list">
+    <% if @diaries.any? %>
+      <% @diaries.each do |diary| %>
+        <div class="diary-card">
+          <% if diary.image.attached? %>
+            <%= image_tag diary.image, class: "diary-image" %>
+          <% end %>
+          <div class="diary-content">
+            <div class="diary-date"><%= diary.created_at.strftime("%Y年 %m月 %d日") %></div>
+            <h3 class="diary-title"><%= diary.title %></h3>
+            <p class="diary-text"><%= diary.content %></p>
+          </div>
+        </div>
       <% end %>
-    </div>
+    <% else %>
+      <p style="color: #bbb; margin-top: 40px;">まだ日記がありません。最初の1つを書いてみませんか？🐾</p>
+    <% end %>
   </div>
+
 </div>

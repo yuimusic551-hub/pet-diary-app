@@ -1,0 +1,213 @@
+<style>
+  /* 全体の背景設定 */
+  .age-chart-wrapper {
+    background-color: #fdfaf4;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  /* メインのカード */
+  .chart-card {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 2px solid #ffcc80;
+    box-sizing: border-box;
+  }
+
+  .chart-title {
+    color: #e67e22;
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: bold;
+    margin-bottom: 5px; /* 下の注釈との距離を調整 */
+    text-align: center;
+  }
+
+  /* ★復活した注釈メッセージ */
+  .chart-subtitle {
+    color: #8d6e63;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .section-group {
+    margin-bottom: 40px;
+  }
+
+  .category-label {
+    display: block;
+    color: white;
+    padding: 8px 25px;
+    border-radius: 50px;
+    margin: 0 auto 15px;
+    font-weight: bold;
+    width: fit-content;
+    font-size: 18px;
+    text-align: center;
+  }
+  .bg-dog-cat { background: #ffab91; }
+  .bg-small   { background: #8bc34a; }
+  .bg-exotic  { background: #ba68c8; }
+
+  .age-table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 15px;
+    border: 1px solid #eee;
+    background-color: white;
+  }
+
+  .age-table {
+    width: 100%;
+    min-width: 450px;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .age-table th {
+    background-color: #fff9f0;
+    color: #8d6e63;
+    padding: 12px;
+    font-size: 14px;
+    border-bottom: 2px solid #ffcc80;
+    white-space: nowrap;
+  }
+
+  .age-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    color: #555;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .age-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+
+  .close-btn-container {
+    text-align: center;
+    margin-top: 10px;
+    position: sticky;
+    bottom: 0;
+    padding-top: 10px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .close-btn {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 15px 60px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #e68a00;
+    transition: 0.2s;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .close-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #e68a00;
+  }
+</style>
+
+<div class="age-chart-wrapper">
+  <div class="chart-card">
+    <h1 class="chart-title">🐾 動物年齢 早見表 🐾</h1>
+    <p class="chart-subtitle">
+      うちの子は人間なら何歳かな？<br>
+      <span style="font-size: 0.9em; opacity: 0.8;">※種類や個体差がありますので、参考として目安にしてください。</span>
+    </p>
+
+    <div class="section-group">
+      <div class="category-label bg-dog-cat">いぬ・ねこ 🐶🐱</div>
+      <div class="age-table-container">
+        <table class="age-table">
+          <thead>
+            <tr>
+              <th>実際の年齢</th>
+              <th>猫・小型犬</th>
+              <th>中型犬</th>
+              <th>大型犬</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1ヶ月</td><td>1歳</td><td>1歳</td><td>1歳</td></tr>
+            <tr><td>1年</td><td>17歳</td><td>16歳</td><td>12歳</td></tr>
+            <tr><td>3年</td><td>28歳</td><td>28歳</td><td>26歳</td></tr>
+            <tr><td>5年</td><td>36歳</td><td>38歳</td><td>40歳</td></tr>
+            <tr><td>10年</td><td>56歳</td><td>63歳</td><td>75歳</td></tr>
+            <tr><td>15年</td><td>76歳</td><td>88歳</td><td>110歳</td></tr>
+            <tr><td>20年</td><td>96歳</td><td>113歳</td><td>145歳</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-group">
+      <div class="category-label bg-small">ハムスター・うさぎ 🐹🐰</div>
+      <div class="age-table-container">
+        <table class="age-table">
+          <thead>
+            <tr>
+              <th>実際の年齢</th>
+              <th>ハムスター</th>
+              <th>うさぎ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1ヶ月</td><td>3歳</td><td>--</td></tr>
+            <tr><td>6ヶ月</td><td>18歳</td><td>17歳</td></tr>
+            <tr><td>1年</td><td>34歳</td><td>24歳</td></tr>
+            <tr><td>3年</td><td>100歳</td><td>34歳</td></tr>
+            <tr><td>5年</td><td>--</td><td>46歳</td></tr>
+            <tr><td>10年</td><td>--</td><td>76歳</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-group">
+      <div class="category-label bg-exotic">フェレット・インコ 🦦🐤</div>
+      <div class="age-table-container">
+        <table class="age-table">
+          <thead>
+            <tr>
+              <th>実際の年齢</th>
+              <th>フェレット</th>
+              <th>セキセイインコ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1ヶ月</td><td>3歳</td><td>3歳</td></tr>
+            <tr><td>1年</td><td>28歳</td><td>20歳</td></tr>
+            <tr><td>3年</td><td>48歳</td><td>33歳</td></tr>
+            <tr><td>5年</td><td>68歳</td><td>44歳</td></tr>
+            <tr><td>10年</td><td>108歳</td><td>80歳</td></tr>
+            <tr><td>15年</td><td>--</td><td>120歳</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="close-btn-container">
+      <button onclick="window.close();" class="close-btn">わかった！閉じる</button>
+    </div>
+  </div>
+</div>
