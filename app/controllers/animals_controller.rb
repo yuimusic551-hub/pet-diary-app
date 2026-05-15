@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnimalsController < ApplicationController
   before_action :authenticate_user!
 
@@ -10,7 +12,7 @@ class AnimalsController < ApplicationController
     if @animal.save
       redirect_to diaries_path, notice: "「#{@animal.name}」を登録しました！🐾"
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

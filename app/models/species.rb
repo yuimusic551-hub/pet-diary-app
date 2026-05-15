@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Species < ActiveHash::Base
   self.data = [
     { id: 1, name: '--' },
@@ -8,5 +10,6 @@ class Species < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :pets
+
+  has_many :pets, dependent: :destroy
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Gender < ActiveHash::Base
   self.data = [
     { id: 1, name: '--' },
@@ -7,5 +9,6 @@ class Gender < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :pets
+
+  has_many :pets, dependent: :destroy
 end
