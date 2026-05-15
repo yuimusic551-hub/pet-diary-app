@@ -1,0 +1,27 @@
+<%# app/views/diaries/edit.html.erb %>
+<div class="new-animal-wrapper" style="background-color: #fdfaf4; min-height: 100vh; padding: 40px 20px; font-family: 'Zen Maru Gothic', sans-serif;">
+  <div class="form-container" style="max-width: 500px; margin: 0 auto; background: white; padding: 40px; border-radius: 40px; border: 3px solid #ffedcc;">
+    <h2 style="color: #ff9800; text-align: center; margin-bottom: 30px;">✏️ 日記をなおす</h2>
+
+    <%= form_with(model: @diary, local: true) do |f| %>
+      <div style="margin-bottom: 20px;">
+        <%= f.label :title, "タイトル", style: "font-weight: bold; color: #666;" %><br>
+        <%= f.text_field :title, class: "input-field", style: "width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc;" %>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <%= f.label :content, "内容", style: "font-weight: bold; color: #666;" %><br>
+        <%= f.text_area :content, rows: 5, style: "width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc;" %>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <%= f.label :image, "写真をかえる", style: "font-weight: bold; color: #666;" %><br>
+        <%= f.file_field :image %>
+      </div>
+
+      <%= f.submit "更新する ✨", style: "background-color: #ff9800; color: white; width: 100%; padding: 15px; border-radius: 30px; border: none; font-weight: bold; cursor: pointer;" %>
+    <% end %>
+
+    <%= link_to "やめる", diaries_path, style: "display: block; text-align: center; margin-top: 20px; color: #bbb; text-decoration: none;" %>
+  </div>
+</div>

@@ -12,63 +12,58 @@
   .greeting-box {
     background: white;
     max-width: 600px;
-    margin: 0 auto 30px;
-    padding: 30px 20px;
+    margin: 0 auto 20px;
+    padding: 25px 20px;
     border-radius: 30px;
     border: 2px dashed #8bc34a;
   }
-  .greeting-title { color: #555; font-size: 28px; font-weight: bold; margin-bottom: 10px; }
+  .greeting-title { color: #555; font-size: 24px; font-weight: bold; margin-bottom: 5px; }
 
-  /* 🌸 日記を書くボタン */
-  .write-btn-container {
-    display: flex;
+  /* 🌸 ペットフォルダ（ボタン） */
+  .animal-folder-container {
+    display: flex; 
+    gap: 12px; 
+    overflow-x: auto; 
     justify-content: center;
+    padding: 10px 0; 
     margin-bottom: 20px;
   }
+  .animal-folder-btn {
+    background: white; 
+    padding: 10px 20px; 
+    border-radius: 25px; 
+    border: 2px solid #ff9800; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    text-align: center; 
+    min-width: 90px;
+    transition: 0.2s;
+  }
+  .animal-folder-btn:hover { background-color: #fff9f0; transform: translateY(-2px); }
 
+  /* 🌸 日記を書くボタン */
+  .write-btn-container { margin-bottom: 30px; }
   .write-diary-btn {
     background-color: #8bc34a;
     color: white;
-    width: 320px;
-    padding: 20px 0;
+    width: 280px;
+    padding: 15px 0;
     border-radius: 60px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    box-shadow: 0 6px 0 #689f38;
-    display: block;
+    box-shadow: 0 5px 0 #689f38;
+    display: inline-block;
     text-decoration: none;
     transition: all 0.2s;
-    cursor: pointer;
   }
-
-  /* ✨ マウスを乗せた時の動きと「肉球カーソル」 ✨ */
   .write-diary-btn:hover {
     transform: scale(1.05);
     background-color: #9ccc65;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    
-    /* 🐾 new.htmlと同じ肉球マウスの呪文 🐾 */
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='24'>🐾</text></svg>"), auto;
   }
 
-  .write-diary-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #689f38;
-  }
-
-  /* 🌸 戻るリンク */
-  .back-link {
-    display: block;
-    margin: 15px 0 40px;
-    color: #8d6e63;
-    text-decoration: underline;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  /* 🌸 日記一覧（2列） */
+  /* 🌸 日記一覧（レスポンシブ） */
   .diary-list {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -77,11 +72,12 @@
 
   @media (min-width: 768px) {
     .diary-list {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
   }
 
+  /* 日記カード */
   .diary-card {
     background: white;
     border-radius: 15px;
@@ -93,6 +89,7 @@
     flex-direction: column;
     text-decoration: none;
     color: inherit;
+    position: relative;
   }
 
   .diary-image-wrapper {
@@ -100,14 +97,37 @@
     width: 100%;
     padding-top: 100%;
     background-color: #fff9f0;
+    overflow: hidden;
   }
-
   .diary-image {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
   }
+
+  /* 🌸 日付とタイトル */
+  .diary-date {
+    color: #8d6e63;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  .diary-title { font-size: 18px; font-weight: bold; color: #444; }
+
+  /* 🌸 編集・削除ボタン */
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
+    background: #fafafa;
+    border-top: 1px inset #eee;
+  }
+  .btn-edit { color: #666; font-size: 13px; text-decoration: none; border: 1px solid #ccc; padding: 2px 8px; border-radius: 5px; }
+  .btn-delete { color: #ff5252; font-size: 13px; text-decoration: none; border: 1px solid #ff5252; padding: 2px 8px; border-radius: 5px; }
+
+  .back-link { display: block; margin: 15px 0 30px; color: #8d6e63; font-size: 16px; }
 </style>
 
 <div class="mypage-wrapper">
@@ -115,11 +135,35 @@
     <div class="greeting-title">
       こんにちは、<%= current_user.name || "お母さん" %>さん！🌸
     </div>
-    <div style="color: #666; font-size: 18px;">今日も思い出を残しましょう🐾</div>
+    <div style="color: #666; font-size: 16px;">
+      <% if params[:animal_id] %>
+        <strong style="color: #ff9800;"><%= Animal.find(params[:animal_id]).name %></strong> の思い出を表示中🐾
+      <% else %>
+        今日も思い出を残しましょう🐾
+      <% end %>
+    </div>
+  </div>
+
+  <%# ペットフォルダ %>
+  <div class="animal-folder-container">
+    <%= link_to diaries_path, style: "text-decoration: none;" do %>
+      <div class="animal-folder-btn" style="border-color: #8bc34a;">
+        <div style="font-size: 20px;">🏠</div>
+        <div style="color: #8bc34a; font-weight: bold; font-size: 12px;">すべて</div>
+      </div>
+    <% end %>
+
+    <% current_user.animals.each do |animal| %>
+      <%= link_to diaries_path(animal_id: animal.id), style: "text-decoration: none;" do %>
+        <div class="animal-folder-btn">
+          <div style="font-size: 20px;">🐹</div>
+          <div style="color: #ff9800; font-weight: bold; font-size: 12px;"><%= animal.name %></div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="write-btn-container">
-    <%# ボタン名を write-diary-btn に変更しました %>
     <%= link_to '日記を書く 🐾', new_diary_path, class: "write-diary-btn" %>
   </div>
 
@@ -128,19 +172,26 @@
   <div class="diary-list">
     <% if @diaries.present? %>
       <% @diaries.each do |diary| %>
-        <%= link_to diary_path(diary), class: "diary-card" do %>
-          <div class="diary-image-wrapper">
-            <% if diary.image.attached? %>
-              <%= image_tag diary.image, class: "diary-image" %>
-            <% else %>
-              <div class="diary-image" style="display:flex; align-items:center; justify-content:center; background:#eee; color:#aaa;">写真なし</div>
-            <% end %>
+        <div class="diary-card">
+          <%= link_to diary_path(diary), style: "text-decoration: none; color: inherit;" do %>
+            <div class="diary-image-wrapper">
+              <% if diary.image.attached? %>
+                <%= image_tag diary.image, class: "diary-image" %>
+              <% else %>
+                <div class="diary-image" style="display:flex; align-items:center; justify-content:center; background:#eee; color:#aaa;">写真なし</div>
+              <% end %>
+            </div>
+            <div style="padding:15px;">
+              <div class="diary-date"><%= diary.created_at.strftime('%Y年%m月%d日') %></div>
+              <div class="diary-title"><%= diary.title %></div>
+            </div>
+          <% end %>
+
+          <div class="action-buttons">
+            <%= link_to '✏️ 編集', edit_diary_path(diary), class: "btn-edit" %>
+            <%= link_to '🗑️ 削除', diary_path(diary), data: { turbo_method: :delete, turbo_confirm: "本当に消してもいいですか？" }, class: "btn-delete" %>
           </div>
-          <div style="padding:12px;">
-            <div style="color:#8d6e63; font-weight:bold;"><%= diary.created_at.strftime('%Y年%m月%d日') %></div>
-            <div style="font-size:18px; font-weight:bold; margin:5px 0; color:#444;"><%= diary.title %></div>
-          </div>
-        <% end %>
+        </div>
       <% end %>
     <% else %>
       <div style="grid-column: 1/-1; padding: 60px; color: #bbb; font-weight: bold;">まだ日記がありません🌻</div>
